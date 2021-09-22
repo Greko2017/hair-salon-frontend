@@ -4,7 +4,8 @@
   "description": "Create React Ant Design Boilerplate",
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "node ./scripts/build-non-split.js",
+    "build": "react-app-rewired build",
+    "build_nk": "node ./scripts/build-non-split.js",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
