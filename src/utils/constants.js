@@ -1,4 +1,6 @@
+import { API_BASE } from 'env';
+
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
-export const WEB_SITE_DOMAIN = "http://localhost:8000"
+export const WEB_SITE_DOMAIN = API_BASE;
