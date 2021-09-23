@@ -12,12 +12,13 @@ export function* postSignInSaga() {
 
   try {
     const res = yield call(postSignInAPI, {
-      username:email,
-      password:password
-     });
-     let token = res.data.access
-    //  console.log(`res`, token)
-    yield put(postSignInSuccess(token));
+      username: email,
+      password: password,
+    });
+    // let token = res.data.access;
+    // console.log(`res`, token);
+    // console.log(`data`, res.data);
+    yield put(postSignInSuccess(res.data));
     yield put(push('/service'));
   } catch (error) {
     yield put(postSignInFailure(error));
@@ -28,11 +29,10 @@ export default function* signInSaga() {
   yield takeLatest(POST_SIGN_IN_REQUEST, postSignInSaga);
 }
 
-export function* LogoutSaga(){
+export function* LogoutSaga() {
   // console.log('In logoutSaga :>> ');
   // yield call(push('/signin'))
 }
-export function* authLogoutSaga(){
+export function* authLogoutSaga() {
   yield take(AUTH_LOGOUT, LogoutSaga);
 }
-
