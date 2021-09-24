@@ -12,7 +12,7 @@ import { makeSelectEmail, makeSelectPassword } from './signin.selectors';
 import { postSignInAction, onChangeEmailAction, onChangePasswordAction } from './signin.actions';
 import reducer from './signin.reducer';
 import saga from './signin.saga';
-import './index.css'
+import './index.css';
 import { Link } from 'react-router-dom';
 const key = 'signin';
 
@@ -27,14 +27,10 @@ function SignIn(props) {
         <meta name="description" content="Description of SignIn" />
       </Helmet>
       <div className="signin__container">
-        <div className="signin__content1">
-
-        </div>
+        <div className="signin__content1"></div>
         <div className="signin__content2">
           <div className="signin__form">
-            <div className="signin__icon">
-
-            </div>
+            <div className="signin__icon"></div>
             <h1 className="class section__title">Sign In</h1>
             <h4 className="section__subtitle">Restez informé</h4>
             <div className="signin__form-content">
@@ -60,7 +56,9 @@ function SignIn(props) {
             <Button className="signin__form-content" type="primary" onClick={props.postSignIn}>
               Sign In
             </Button>
-            <p className="section__subtitle">Don't have a Wave account yet? <Link to="#">Sign up now.</Link></p>
+            <p className="section__subtitle">
+              Don't have a Wave account yet? <Link to="#">Sign up now.</Link>
+            </p>
           </div>
         </div>
       </div>
@@ -87,12 +85,6 @@ const mapDispatchToProps = dispatch => ({
   onChangePassword: e => dispatch(onChangePasswordAction(e.target.value)),
 });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(
-  withConnect,
-  memo,
-)(SignIn);
+export default compose(withConnect, memo)(SignIn);
