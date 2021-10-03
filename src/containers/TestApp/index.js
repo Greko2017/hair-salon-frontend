@@ -173,7 +173,7 @@ export class WrapperTestApp extends Component {
           </Col>
           <Col span={6}>
             <DemoBox value={80}>
-              <Row gutter={[16, 16]} type="flex" justify="flex-start" align="top">
+              <Row gutter={[16, 16]} type="flex" justify="start" align="top">
                 <Col span={13}>
                   <Statistic title="Status" value={this.state.account_details.status || 'n/a'} />
                 </Col>
