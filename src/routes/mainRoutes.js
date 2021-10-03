@@ -6,6 +6,7 @@ import Sales from 'containers/Sales';
 import ServiceLine from 'containers/ServiceLine';
 import SalesLine from 'containers/SalesLine';
 import TestApp from 'containers/TestApp';
+import TestAppResult from 'containers/TestAppResult';
 
 const mainRoutes = [
   {
@@ -16,56 +17,63 @@ const mainRoutes = [
     component: Board,
     auth: true,
     permission: 'admin',
-    key:"1"
+    key: '1',
   },
   {
     path: '/signin',
     name: 'Sign In',
     icon: 'login',
     component: SignIn,
-    key:"2"
+    key: '2',
   },
   {
     path: '/service',
     name: 'Service',
     icon: 'scissore',
     component: Service,
-    key:"3"
+    key: '3',
   },
   {
     path: '/service/:service_id',
     name: 'serviceline',
     icon: 'scissore',
     component: ServiceLine,
-    key:"4"
+    key: '4',
   },
   {
     path: '/sales',
     name: 'Sales',
     icon: 'wallet',
     component: Sales,
-    key:"5"
+    key: '5',
   },
   {
     path: '/sales/:sales_id',
     name: 'SalesLine',
     icon: 'wallet',
     component: SalesLine,
-    key:"6"
+    key: '6',
   },
   {
     path: '/test_app/',
     name: 'TestApp',
     icon: 'test',
     component: TestApp,
-    key:"7"
+    key: '7',
+  },
+  {
+    path: '/test_app_result/:email_data',
+    name: 'TestAppResult',
+    icon: 'wallet',
+    component: TestAppResult,
+    key: '8',
   },
   {
     path: '',
     name: 'Not Found',
     icon: 'close-circle',
     component: NotFound,
-    key:"0"
+    key: '0',
   },
 ];
 

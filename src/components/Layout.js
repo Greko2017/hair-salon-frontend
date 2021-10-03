@@ -1,16 +1,13 @@
-import React, { Component } from "react";
-import {
-  Layout,
-  Breadcrumb,
-} from "antd";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Layout, Breadcrumb } from 'antd';
+import { connect } from 'react-redux';
 
 import Header from 'components/Header';
 import Sider from 'components/Sider';
-import { Helmet } from "react-helmet";
-import { enquireScreen, unenquireScreen } from 'enquire-js'
-import { fetchEmployees } from "containers/Employee/employee.actions";
-import { fetchSalaries } from "containers/Salary/salary.actions";
+import { Helmet } from 'react-helmet';
+import { enquireScreen, unenquireScreen } from 'enquire-js';
+import { fetchEmployees } from 'containers/Employee/employee.actions';
+import { fetchSalaries } from 'containers/Salary/salary.actions';
 
 class LayoutCustom extends Component {
   state = {
@@ -19,58 +16,63 @@ class LayoutCustom extends Component {
     isMobile: false,
   };
   componentDidMount() {
-    this.props.fetchEmployees()
-    this.props.fetchSalaries()
+    this.props.fetchEmployees();
+    this.props.fetchSalaries();
     this.enquireHandler = enquireScreen(mobile => {
-      const { isMobile } = this.state
+      const { isMobile } = this.state;
       if (isMobile !== mobile) {
         this.setState({
           isMobile: mobile,
-        })
+        });
       }
-    })
-    let token = this.props.token
+    });
+    let token = this.props.token;
     // console.log('Layout cdm token :>> ', token);
-    this.isLogIng(token)
+    this.isLogIng(token);
   }
   componentWillUnmount() {
-    unenquireScreen(this.enquireHandler)
+    unenquireScreen(this.enquireHandler);
   }
   onCollapseChange = collapsed => {
     this.props.dispatch({
       type: 'app/handleCollapseChange',
       payload: collapsed,
-    })
-  }
-  get siderProps (){
+    });
+  };
+  get siderProps() {
     return {
       isMobile: this.state.isMobile,
       collapsed: this.state.collapsed,
       onCollapseChange: this.state.onCollapseChange,
-    }
+    };
   }
 
-  hideComponent =(name)=> {
+  hideComponent = name => {
     // console.log(name);
-    let switch_value = name === 'showSider' ? this.setState({ showSider: !this.state.showSider }) : name === 'showHeader' ? this.setState({ showHeader: !this.state.showHeader }) : null
-
-  }
-  isLogIng  = (token)=>{
-    if (token && token.toString().length > 30){
+    let switch_value =
+      name === 'showSider'
+        ? this.setState({ showSider: !this.state.showSider })
+        : name === 'showHeader'
+        ? this.setState({ showHeader: !this.state.showHeader })
+        : null;
+  };
+  isLogIng = token => {
+    if (token && token.toString().length > 30) {
       this.hideComponent('showSider');
       this.hideComponent('showHeader');
     }
-  }
+  };
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Helmet titleTemplate="%s - Hair Salon management" defaultTitle="Hair Salon management">
           <meta name="description" content="A Hair Salon management application" />
         </Helmet>{' '}
-
-        {this.props.location.pathname!=="/signin" && this.props.location.pathname!=="/test_app" ? (
+        {this.props.location.pathname !== '/signin' &&
+        this.props.location.pathname !== '/test_app' &&
+        this.props.location.pathname.toString().substring(0, 17) !== '/test_app_result/' ? (
           <>
-            <Sider {...this.siderProps}/>
+            <Sider {...this.siderProps} />
             <Layout>
               <Header />
               <Layout>
@@ -81,7 +83,7 @@ class LayoutCustom extends Component {
                 </Breadcrumb>
                 <Layout.Content style={{ padding: '0 50px', marginTop: 64 }}>
                   <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>
-                      {React.cloneElement(this.props.children)}
+                    {React.cloneElement(this.props.children)}
                   </div>
                 </Layout.Content>{' '}
                 <Layout.Footer style={{ textAlign: 'center' }}> Hair Salon management </Layout.Footer>{' '}
@@ -91,26 +93,24 @@ class LayoutCustom extends Component {
         ) : (
           <Layout>
             <Layout.Content>
-              <div>
-                  {React.cloneElement(this.props.children)}
-              </div>
+              <div>{React.cloneElement(this.props.children)}</div>
             </Layout.Content>
           </Layout>
         )}
       </Layout>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   // console.log('state :>> ', state);
   return {
     token: state.global ? state.global.token : '',
-    location: state.router.location
+    location: state.router.location,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     // onTryAutoSignup: () => dispatch(actions.authCheckState()),
     fetchEmployees: () => dispatch(fetchEmployees()),
