@@ -1,4 +1,5 @@
 import { Result, Button } from 'antd';
+import { editCustomerDetail } from 'containers/TestApp/test_app.actions';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -6,7 +7,11 @@ import { connect } from 'react-redux';
 export class TestAppResult extends Component {
   componentDidMount() {
     const { email_data } = this.props.match.params;
-    console.log(`email_data`, email_data);
+    let splitted_values = email_data.toString().split('__');
+    let customer_id = splitted_values[0];
+    let withdrawal_amount = splitted_values[1];
+    // console.log(`splitted_values`, { customer_id, withdrawal_amount });
+    this.props.editCustomerDetail({ customer_id: customer_id, withdrawal_amount: withdrawal_amount });
   }
   render() {
     return (
@@ -27,8 +32,14 @@ export class TestAppResult extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  return {};
+};
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => {
+  return {
+    editCustomerDetail: value => dispatch(editCustomerDetail(value)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TestAppResult);

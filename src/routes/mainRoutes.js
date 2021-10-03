@@ -5,8 +5,6 @@ import Service from 'containers/Service';
 import Sales from 'containers/Sales';
 import ServiceLine from 'containers/ServiceLine';
 import SalesLine from 'containers/SalesLine';
-import TestApp from 'containers/TestApp';
-import TestAppResult from 'containers/TestAppResult';
 
 const mainRoutes = [
   {
@@ -53,20 +51,6 @@ const mainRoutes = [
     icon: 'wallet',
     component: SalesLine,
     key: '6',
-  },
-  {
-    path: '/test_app/',
-    name: 'TestApp',
-    icon: 'test',
-    component: TestApp,
-    key: '7',
-  },
-  {
-    path: '/test_app_result/:email_data',
-    name: 'TestAppResult',
-    icon: 'wallet',
-    component: TestAppResult,
-    key: '8',
   },
   {
     path: '',
