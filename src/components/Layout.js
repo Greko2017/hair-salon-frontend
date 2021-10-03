@@ -68,7 +68,7 @@ class LayoutCustom extends Component {
           <meta name="description" content="A Hair Salon management application" />
         </Helmet>{' '}
 
-        {this.props.location.pathname!=="/signin" ? (
+        {this.props.location.pathname!=="/signin" && this.props.location.pathname!=="/test_app" ? (
           <>
             <Sider {...this.siderProps}/>
             <Layout>

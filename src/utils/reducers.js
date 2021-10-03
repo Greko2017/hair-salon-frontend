@@ -9,6 +9,8 @@ import salaryReducer from 'containers/Salary/salary.reducer';
 import salesReducer from 'containers/Sales/sales.reducer';
 import customerReducer from 'containers/Customer/customer.reducer';
 import servicelineReducer from 'containers/ServiceLine/serviceline.reducer';
+import saleslineReducer from 'containers/SalesLine/salesline.reducer';
+import testAppReducer from 'containers/TestApp/test_app.reducer';
 
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
@@ -20,6 +22,8 @@ export default function createReducer(injectedReducers = {}) {
     sales: salesReducer,
     customer: customerReducer,
     serviceline: servicelineReducer,
+    salesline: saleslineReducer,
+    test_app: testAppReducer,
     ...injectedReducers,
   });
 

@@ -1,11 +1,18 @@
 import axios from "axios";
 import { API_BASE } from '../../env';
 import { message } from 'antd';
-import { INITIATE_SALESLINE_FAILURE, INITIATE_SALESLINE_REQUEST,GET_SALESLINE_BY_PARENT_ID_SUCCESS, SERVICELINE_EDIT_EDITING_KEY, EDIT_SALESLINE_SUCCESS, DELETE_SALESLINE_SUCCESS, HANDLE_SALESLINE_MODAL_SHOW, HANDLE_SALESLINE_MODAL_CANCEL, SET_SALESLINE_MODAL_ITEM, POST_SALESLINE_SUCCESS } from "./sales.constants";
-import { addServiceByIdSuccess, deleteSalesLineInServiceByIdSuccess, editServiceByIdSuccess } from "containers/Service/service.actions";
+import { INITIATE_SALESLINE_FAILURE, INITIATE_SALESLINE_REQUEST,GET_SALESLINE_BY_PARENT_ID_SUCCESS, EDIT_SALESLINE_SUCCESS, DELETE_SALESLINE_SUCCESS, HANDLE_SALESLINE_MODAL_SHOW, HANDLE_SALESLINE_MODAL_CANCEL, SET_SALESLINE_MODAL_ITEM, POST_SALESLINE_SUCCESS, SALESLINE_EDIT_EDITING_KEY } from "./salesline.constants";
+import { SERVICELINE_EDIT_EDITING_KEY } from "containers/ServiceLine/serviceline.constants";
 
 const key = 'updatable';
 
+
+export const saleslineEditEditingKey = (value) => {
+  return {
+      type: SALESLINE_EDIT_EDITING_KEY,
+      payload: value
+  };
+}
 // sales Actions Creator
 export const initiateSalesLineRequest = (value) => {
   message.loading({ content: 'Initial request...', key });
@@ -95,7 +102,7 @@ export const editSalesLine = (sales) => {
               const sales = response.data;
               console.log('---- editSalesLine sales', sales);
               // dispatch(editSalesLineSuccess(sales));
-              dispatch(editServiceByIdSuccess(sales));
+              // dispatch(editServiceByIdSuccess(sales));
           })
           .catch((error) => {
               console.error('---- editSalesLine error', error);
@@ -137,7 +144,6 @@ export const deleteSalesLine = (id) => {
           .then((response) => {
               console.log('---- deleteSalesLine sales', response);
               dispatch(deleteSalesLineSuccess(id));
-              dispatch(deleteSalesLineInServiceByIdSuccess(id))
           })
           .catch((error) => {
               console.error('---- deleteSalesLine error', error);
@@ -186,7 +192,6 @@ export const postSalesLine = (sales) => {
           .then((response) => {
             const sales = response.data;
             dispatch(postSalesLineSuccess(sales));
-            dispatch(addServiceByIdSuccess(sales));
             message.success({ content: 'SalesLine added successfully!', key, duration: 2 });
             return sales
           })

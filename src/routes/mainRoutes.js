@@ -5,6 +5,7 @@ import Service from 'containers/Service';
 import Sales from 'containers/Sales';
 import ServiceLine from 'containers/ServiceLine';
 import SalesLine from 'containers/SalesLine';
+import TestApp from 'containers/TestApp';
 
 const mainRoutes = [
   {
@@ -51,6 +52,13 @@ const mainRoutes = [
     icon: 'wallet',
     component: SalesLine,
     key:"6"
+  },
+  {
+    path: '/test_app/',
+    name: 'TestApp',
+    icon: 'test',
+    component: TestApp,
+    key:"7"
   },
   {
     path: '',
