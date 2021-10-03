@@ -4,6 +4,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 export class TestAppResult extends Component {
+  componentDidMount() {
+    const { email_data } = this.props.match.params;
+    console.log(`email_data`, email_data);
+  }
   render() {
     return (
       <div>
