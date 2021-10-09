@@ -1,4 +1,4 @@
-import {INITIATE_SALES_FAILURE,INITIATE_SALES_REQUEST,FETCH_SALES_SUCCESS, HANDLE_SALES_MODAL_SHOW, HANDLE_SALES_MODAL_CANCEL, POST_SALES_SUCCESS, SET_SALES_MODAL_ITEM, DELETE_SALES_SUCCESS, EDIT_SALES_SUCCESS} from './sales.constants'
+import {INITIATE_SALES_FAILURE,INITIATE_SALES_REQUEST,FETCH_SALES_SUCCESS, HANDLE_SALES_MODAL_SHOW, HANDLE_SALES_MODAL_CANCEL, POST_SALES_SUCCESS, SET_SALES_MODAL_ITEM, DELETE_SALES_SUCCESS, EDIT_SALES_SUCCESS, GET_SALE_BY_ID_SUCCESS} from './sales.constants'
 const initialState = {
   loading: false,
   sales: [],
@@ -57,6 +57,13 @@ const saleReducer = (state = initialState, { type, payload }) => {
                 return payload
             })]
         };
+        case GET_SALE_BY_ID_SUCCESS:
+          return {
+              ...state,
+              loading: false,
+              parent: payload,
+              error: "",
+          };
     case HANDLE_SALES_MODAL_SHOW:
       console.log('In handle sale modal :>> ', payload);
         return {...state,modalData: {...state.modalData, isVisible:true, item: payload}};

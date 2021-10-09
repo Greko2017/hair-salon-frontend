@@ -20,7 +20,7 @@ class EditableCell extends React.Component {
     }
     getInput = () => {
         if (this.props.inputType === 'number') {
-            return <InputNumber />;
+            return <InputNumber style={{ width: '80%'}} />;
         }
         return <Input />;
     };
@@ -35,12 +35,11 @@ class EditableCell extends React.Component {
             index,
             children,
             customers,
+            products,
             service_names,
             standard_amounts,
             ...restProps
         } = this.props;
-        const income_types = [{ id: 'offering', name: 'Offering' }, { id: 'tithe', name: 'Tithe' }, { id: 'project', name: 'Project' }, { id: 'Shiloh', name: 'Shiloh' }, { id: 'thank_giving', name: 'Thanks Giving' }, { id: 'needy', name: 'Needy/Widows' },]
-
         // console.log('--- In renderCell props', this.state.is_credit);
 
         return (
@@ -60,44 +59,45 @@ class EditableCell extends React.Component {
                                 )}
                             </Form.Item>
                             ) :
-                            dataIndex === 'lookup' ? (
+                            dataIndex === 'parent.customer.firstname' ? (
                                 <Form.Item style={{ marginBottom: 0 }}>
                                     {getFieldDecorator(dataIndex, {
-                                        initialValue: record.lookup.id,
-                                        rules: [{ required: true, message: 'Please select a Service Name' }],
+                                        initialValue: record.parent.customer_id,
+                                        rules: [{ required: true, message: 'Please select the Customer' }],
                                     })(
-                                      <Select style={{ width: '100%', minWidth: 30 }}
+                                      <Select style={{ width: '100%' }}
                                           showSearch
-                                          placeholder="Select a Service Name"
+
+                                          placeholder="Select the Customer"
                                           optionFilterProp="children"
                                           filterOption={(input, option) =>
                                               option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0
                                           }>
-                                          {service_names.map(service_name => <Option key={service_name.id} value={service_name.id}>{service_name.name}</Option>)}
+                                          {customers.map(customer => <Option key={customer.id} value={customer.id}>{customer.firstname}</Option>)}
+                                      </Select>
+                                    )}
+                                </Form.Item>
+                            ) : dataIndex === 'product.name' ? (
+                                <Form.Item style={{ marginBottom: 0 }}>
+                                    {getFieldDecorator(dataIndex, {
+                                        initialValue: record.product_id,
+                                        rules: [{ required: true, message: 'Please select a Product' }],
+                                    })(
+                                      <Select style={{ width: '100%' }}
+                                          showSearch
+                                          placeholder="Select the Customer"
+                                          optionFilterProp="children"
+                                          filterOption={(input, option) =>
+                                              option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                          }>
+                                          {products.map(product => <Option key={product.id} value={product.id}>{product.name}</Option>)}
                                       </Select>
                                     )}
                                 </Form.Item>
                             ) :
                             (
                                 <div>
-                                    {dataIndex === 'customer_id' ? (
-                                        <Form.Item style={{ marginBottom: 0 }}>
-                                            {getFieldDecorator(dataIndex, {
-                                                initialValue: record.customer_id.id,
-                                                rules: [{ required: true, message: 'Please input the Customer!' }],
-                                            })(
-                                                <Select style={{ width: '100%', minWidth: 30 }}
-                                                    showSearch
-                                                    placeholder="Select a Customer"
-                                                    optionFilterProp="children"
-                                                    filterOption={(input, option) =>
-                                                        option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                                    }>
-                                                    {customers.map(customer => <Option key={customer.id} value={customer.id}>{customer.firstname}</Option>)}
-                                                </Select>
-                                            )}
-                                        </Form.Item>
-                                    ) : (<Form.Item style={{ margin: 0 }}>
+                                  <Form.Item style={{ margin: 0 }}>
                                         {getFieldDecorator(dataIndex, {
                                             rules: [
                                                 {
@@ -107,7 +107,7 @@ class EditableCell extends React.Component {
                                             ],
                                             initialValue: record[dataIndex],
                                         })(this.getInput())}
-                                    </Form.Item>)}
+                                    </Form.Item>
                                 </div>
                             )}
                     </div>
@@ -149,11 +149,13 @@ class EditableTable extends React.Component {
             if (error) {
                 return;
             }
-            let income_line_data = row
-            income_line_data.id = record.id
-            income_line_data.parent = record.parent
             console.log('In save SalesLineTable record :>> ', record);
+            row.id = record.id
+            row.parent_id = record.parent_id
             row.payment_method = record.payment_method
+            row.customer_id = row.parent?.customer?.firstname
+            row.product_id = record.product_id
+            row.is_credit = row.is_credit === undefined ? record.is_credit : row.is_credit
             console.log('In save SalesLineTable row :>> ', row);
             editSalesLine(row)
             saleslineEditEditingKey('')
@@ -200,7 +202,7 @@ class EditableTable extends React.Component {
     }
     handleMenuClick = (record, e) => {
         const { deleteSalesLine } = this.props
-
+        console.log(`record`, record)
         if (e.key === '1') {
             this.edit(record.id)
         } else if (e.key === '2') {
@@ -213,7 +215,7 @@ class EditableTable extends React.Component {
         }
     }
     render() {
-        const { saleslineData } = this.props
+        // const { saleslineData } = this.props
         // const { service_by_id } = saleslineData
         const components = {
             body: {
@@ -222,12 +224,12 @@ class EditableTable extends React.Component {
         };
         this.columns = [
             {
-                title: 'Service name',
-                dataIndex: 'lookup',
-                key: 'service_name',
-                editable: true,
+                title: 'Product ID',
+                dataIndex: 'product.name',
+                key: 'product_name',
+                editable:true,
                 render: (text) => {
-                    return <span>{text.name}</span>
+                    return <span>{text}</span>
                 },
             },
             {
@@ -246,33 +248,33 @@ class EditableTable extends React.Component {
             },
             {
               title: 'Customer (Cst)',
-              dataIndex: 'customer_id',
+              dataIndex: 'parent.customer.firstname',
               key: 'customer',
-              editable: true,
-              render: customer_id => {
+              // editable: true,
+              render: firstname => {
                 return (
-                  <span>{customer_id.firstname}</span>
+                  <span>{firstname}</span>
                 )
               },
+            },
+            {
+                title: 'Selling Price',
+                dataIndex: 'product.selling_price',
+                key: 'selling_price',
+            },
+            {
+                title: 'Qty',
+                dataIndex: 'product_quantity',
+                key: 'product_quantity',
+                editable: true,
             },
             {
                 title: 'Amount Paid',
                 dataIndex: 'amount_paid',
                 key: 'amount_paid',
-                editable: true,
-            },
-            {
-                title: 'Qty',
-                dataIndex: 'quantity',
-                key: 'quantity',
-                editable: true,
-            },
-            {
-                title: 'Amount',
-                dataIndex: 'amount',
-                key: 'amount',
                 render: (text, record) => {
-                    return ((record.quantity > 0 ? record.quantity : 1) * record.amount_paid)
+                    // console.log(`--- record`, record)
+                    return ((record.product_quantity > 0 ? record.product_quantity : 1) * record.product.selling_price)
                 },
             },
                   {
@@ -313,42 +315,40 @@ class EditableTable extends React.Component {
             },
         ];
         const columns = this.columns.map(col => {
-            const { standard_amountData, revenueData,customers, service_names } = this.props
+            const { standard_amountData, products,revenueData,customers, service_names } = this.props
             if (!col.editable) {
                 return col;
             }
-            if (col.dataIndex === 'customer_id') {
-
+            if (col.dataIndex === 'parent.customer.firstname') {
                 return {
                     ...col,
-                    // render: (text) => {
-                    //     return text
-                    // },
-                    onCell: record => ({
+                    onCell: record => {
+                      return  {
                         record,
                         customers: customers,
                         dataIndex: col.dataIndex,
                         editing: this.isEditing(record),
-                    }),
+                    }},
                 };
             }
-            if (col.dataIndex === 'lookup') {
-                return {
-                    ...col,
-                    onCell: record => ({
-                        record,
-                        service_names: service_names,
-                        dataIndex: col.dataIndex,
-                        editing: this.isEditing(record),
-                    }),
-                };
+            if (col.dataIndex =="product.name") {
+              return {
+                ...col,
+                onCell: record => {
+                  return {
+                    record,
+                    products, products,
+                    dataIndex: col.dataIndex,
+                    editing: this.isEditing(record),
+                  }
+                }
+              }
             }
             return {
                 ...col,
                 onCell: record => ({
                     record,
-                    standard_amounts: [],
-                    inputType: (col.dataIndex === 'quantity' || col.dataIndex === 'amount_paid') ? 'number' : 'text',
+                    inputType: (col.dataIndex === 'product.selling_price' || col.dataIndex === 'product_quantity' || col.dataIndex === 'amount_paid') ? 'number' : 'text',
                     dataIndex: col.dataIndex,
                     title: col.title,
                     editing: this.isEditing(record),
@@ -370,7 +370,7 @@ class EditableTable extends React.Component {
                     rowKey={record => record.id}
                     components={components}
                     bordered
-                    dataSource={this.props.service_by_id.saleslines}
+                    dataSource={this.props.saleslines_by_parent_id}
                     columns={columns}
                     rowClassName="editable-row"
                     pagination={{
@@ -385,9 +385,11 @@ class EditableTable extends React.Component {
 const mapStateToProps = (state) => {
     // console.log('In service line state :>> ', state);
     return {
+        saleslines_by_parent_id: state.salesline.saleslines_by_parent_id,
         service_by_id: state.service.service_by_id,
         saleslineData: state.salesline,
         customers : state.customer.customers,
+        products : state.product.products,
         service_names: state.service.service_names,
     }
 }

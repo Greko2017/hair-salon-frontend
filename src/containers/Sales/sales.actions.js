@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_BASE } from '../../env';
 import { message } from 'antd';
-import { DELETE_SALES_SUCCESS, EDIT_SALES_SUCCESS, FETCH_SALES_SUCCESS, HANDLE_SALES_MODAL_CANCEL, HANDLE_SALES_MODAL_SHOW, INITIATE_SALES_FAILURE, INITIATE_SALES_REQUEST, POST_SALES_SUCCESS, SET_SALES_MODAL_ITEM } from "./sales.constants";
+import { DELETE_SALES_SUCCESS, EDIT_SALES_SUCCESS, FETCH_SALES_SUCCESS, GET_SALE_BY_ID_SUCCESS, HANDLE_SALES_MODAL_CANCEL, HANDLE_SALES_MODAL_SHOW, INITIATE_SALES_FAILURE, INITIATE_SALES_REQUEST, POST_SALES_SUCCESS, SET_SALES_MODAL_ITEM } from "./sales.constants";
 
 const key = 'updatable';
 
@@ -174,6 +174,34 @@ export const deleteSale = (id) => {
           });
   };
 };
+
+// sales Actions Creator
+export const getSaleByIdSuccess = (sales) => {
+  message.success({ content: 'Sale fetched successfully!', key, duration: 2 });
+  return {
+      type: GET_SALE_BY_ID_SUCCESS,
+      payload: sales
+  };
+};
+
+export const getSaleById = (sales_id) => {
+  return async (dispatch)=>{
+    dispatch(initiateSaleRequest);
+    let stored_token = localStorage.getItem('token')
+    let token = `Token ${stored_token}`
+    axios.defaults.headers.common['Authorization'] = token
+    try {
+      let res = await axios.get(`${API_BASE}/api/sale/${sales_id}`)
+      let sales = await res.data;
+      console.log('in getSaleById :>> ', sales);
+      dispatch(getSaleByIdSuccess(sales))
+      return await sales
+    } catch (error) {
+      console.error('in getSaleById :>> ', error.message);
+      dispatch(initiateSaleFailure(error.message))
+    }
+  }
+}
 
 
 function computeSaleName(){

@@ -29,6 +29,8 @@ export class SaleModalInner extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        values.product_id = values.quantity
+        values.product_id = values.product_id
         if (this.props.isOnCreate=== true){
           this.props.postSale(values)
         }else if (this.props.isOnCreate === false){

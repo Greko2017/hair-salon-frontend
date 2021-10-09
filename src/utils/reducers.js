@@ -11,6 +11,7 @@ import customerReducer from 'containers/Customer/customer.reducer';
 import servicelineReducer from 'containers/ServiceLine/serviceline.reducer';
 import saleslineReducer from 'containers/SalesLine/salesline.reducer';
 import testAppReducer from 'containers/TestApp/test_app.reducer';
+import productReducer from 'containers/Product/product.reducer';
 
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ export default function createReducer(injectedReducers = {}) {
     serviceline: servicelineReducer,
     salesline: saleslineReducer,
     test_app: testAppReducer,
+    product: productReducer,
     ...injectedReducers,
   });
 

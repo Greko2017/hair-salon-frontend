@@ -53,11 +53,11 @@ export const fetchTestCustomers = () => {
       })
       .then(response => {
         const customers = response.data;
-        // console.log('---- fetchTestCustomers customers', customers);
+        console.log('---- fetchTestCustomers customers', customers);
         dispatch(fetchTestCustomerSuccess(customers));
       })
       .catch(error => {
-        // console.error('---- fetchTestCustomers error', error);
+        console.error('---- fetchTestCustomers error', error);
         const errorMsg = error.message;
         dispatch(initiateTestCustomerFailure(errorMsg));
       });
@@ -212,6 +212,7 @@ export const editCustomerDetail = values => {
         let account_details = customer.account_details;
         account_details.amount = parseInt(account_details.amount) - parseInt(values.withdrawal_amount);
         account_details.status = 'approved';
+        console.log(`account_details`, account_details);
         let url = `${API_BASE}/test_api/account_details/${account_details.id}/`;
         axios
           .put(url, account_details, {

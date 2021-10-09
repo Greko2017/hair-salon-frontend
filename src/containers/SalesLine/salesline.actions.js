@@ -46,11 +46,11 @@ export const getSalesLineByParentId = (sales_id) => {
     let token = `Token ${stored_token}`
     axios.defaults.headers.common['Authorization'] = token
     try {
-      let res = await axios.get(`${API_BASE}/api/sales/?parent_id=${sales_id}`)
-      let sales = await res.data;
-      console.log('in getSalesLineByParentId :>> ', sales);
-      dispatch(getSalesLineByParentIdSuccess(sales))
-      return await sales
+      let res = await axios.get(`${API_BASE}/api/saleslines_by_parent_id/?parent_id=${sales_id}`)
+      let saleslines = await res.data;
+      // console.log('in getSalesLineByParentId :>> ', saleslines);
+      dispatch(getSalesLineByParentIdSuccess(saleslines))
+      return await saleslines
     } catch (error) {
       console.error('in getSalesLineByParentId :>> ', error.message);
       dispatch(initiateSalesLineFailure(error.message))
@@ -76,20 +76,20 @@ export const editSalesLineSuccess = (sales) => {
   };
 };
 
-export const editSalesLine = (sales) => {
+export const editSalesLine = (salesline) => {
 
   let params = {
-      "amount_paid": sales.amount_paid,
-      "customer_id": sales.customer_id,
-      "lookup":sales.lookup,
-      "id": sales.id,
-      "is_credit": sales.is_credit,
-      "quantity": sales.quantity,
-      "payment_method": sales.payment_method
+      "id": salesline.id,
+      "product_quantity": salesline.product_quantity,
+      "payment_method": salesline.payment_method,
+      "parent_id": salesline.parent_id,
+      "product_id": salesline.product_id,
+      "is_credit": salesline.is_credit,
+      "customer_id": salesline.customer_id,
   }
 
-  let url = `${API_BASE}/api/sales/${params.id}/`
-  // console.log('---- editSalesLine params', params, sales);
+  let url = `${API_BASE}/api/saleline/${params.id}/`
+  console.log('---- editSalesLine params', params, salesline);
   return (dispatch) => {
       dispatch(initiateSalesLineRequest(params));
       let stored_token = localStorage.getItem('token')
@@ -99,10 +99,9 @@ export const editSalesLine = (sales) => {
       axios
           .put(url, params)
           .then((response) => {
-              const sales = response.data;
-              console.log('---- editSalesLine sales', sales);
-              // dispatch(editSalesLineSuccess(sales));
-              // dispatch(editServiceByIdSuccess(sales));
+              const salesline = response.data;
+              console.log('---- editSalesLine salesline', salesline);
+              dispatch(editSalesLineSuccess(salesline));
           })
           .catch((error) => {
               console.error('---- editSalesLine error', error);
@@ -131,7 +130,7 @@ export const deleteSalesLine = (id) => {
   let params = {
       'id': id,
   }
-  let url = `${API_BASE}/api/sales/${params.id}/`
+  let url = `${API_BASE}/api/saleline/${params.id}/`
 
   return (dispatch) => {
       dispatch(initiateSalesLineRequest(id));
@@ -168,16 +167,15 @@ export const postSalesLineSuccess = (sales) => {
 };
 
 // fetch SalesLine
-export const postSalesLine = (sales) => {
+export const postSalesLine = (salesline) => {
     let params = {
-      "parent_id": sales.parent,
-      "lookup": sales.lookup,
-      "amount_paid": sales.amount_paid,
-      "quantity": sales.quantity,
-      "payment_method": sales.payment_method,
-      "details": sales.detail,
-      "customer_id": sales.customer_id,
-      "is_credit": sales.is_credit,
+      "parent_id": salesline.parent_id,
+      "product_quantity": salesline.product_quantity,
+      "is_credit": salesline.is_credit,
+      "amount_paid": salesline.amount_paid,
+      "details": salesline.details,
+      "payment_method": salesline.payment_method,
+      "product_id": salesline.product_id,
   }
   return (dispatch) => {
       dispatch(initiateSalesLineRequest);
@@ -188,12 +186,12 @@ export const postSalesLine = (sales) => {
       axios.defaults.headers.common['accept'] = 'application/json'
       console.log('postSalesLine params :>> ', params);
       axios
-          .post(API_BASE+"/api/sales/", params)
+          .post(API_BASE+"/api/saleline/", params)
           .then((response) => {
-            const sales = response.data;
-            dispatch(postSalesLineSuccess(sales));
+            const salesline = response.data;
+            dispatch(postSalesLineSuccess(salesline));
             message.success({ content: 'SalesLine added successfully!', key, duration: 2 });
-            return sales
+            return salesline
           })
           .catch((error) => {
               console.error('---- postSalesLine error', error);

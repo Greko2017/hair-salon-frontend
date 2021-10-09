@@ -188,8 +188,8 @@ handleMenuClick = (record, e) => {
         key: 'amount_paid',
         render: salelines => {
           let amount_paid = 0
-          salelines.forEach(( serviceline,i) =>{
-            amount_paid = amount_paid + serviceline.amount_paid
+          salelines.forEach(( saleline,i) =>{
+            amount_paid = amount_paid + (saleline.product.selling_price * saleline.product_quantity) * ( saleline.is_credit ? 1 : -1 )
           })
           return (
             <span>{`${amount_paid} Fcfa`}</span>
