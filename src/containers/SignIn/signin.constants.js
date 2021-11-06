@@ -4,4 +4,6 @@ export const POST_SIGN_IN_FAILURE = 'signin/POST_SIGN_IN_FAILURE';
 
 export const ON_CHANGE_EMAIL = 'signin/ON_CHANGE_EMAIL';
 export const ON_CHANGE_PASSWORD = 'signin/ON_CHANGE_PASSWORD';
-export const AUTH_LOGOUT = "AUTH_LOGOUT";
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+
+export const SAVE_USER_DATA_GENERAL = 'SAVE_USER_DATA_GENERAL';

@@ -5,6 +5,7 @@ import { POST_SIGN_IN_REQUEST, AUTH_LOGOUT } from './signin.constants';
 import { postSignInAPI } from './signin.api';
 import { postSignInSuccess, postSignInFailure } from './signin.actions';
 import { makeSelectEmail, makeSelectPassword } from './signin.selectors';
+import { CLEARSTORE, saveUserData } from 'utils/general.actions';
 
 export function* postSignInSaga() {
   const email = yield select(makeSelectEmail());
@@ -15,9 +16,10 @@ export function* postSignInSaga() {
       username: email,
       password: password,
     });
-    // let token = res.data.access;
-    // console.log(`res`, token);
-    // console.log(`data`, res.data);
+    let token = res.data.access;
+    console.log(`-- postSignInSaga res`, token);
+    console.log(`-- postSignInSagadata`, res.data);
+    yield put(saveUserData(res.data));
     yield put(postSignInSuccess(res.data));
     yield put(push('/service'));
   } catch (error) {
@@ -32,6 +34,10 @@ export default function* signInSaga() {
 export function* LogoutSaga() {
   // console.log('In logoutSaga :>> ');
   // yield call(push('/signin'))
+
+  localStorage.removeItem('token');
+  localStorage.removeItem('expirationDate');
+  localStorage.removeItem('userState');
 }
 export function* authLogoutSaga() {
   yield take(AUTH_LOGOUT, LogoutSaga);

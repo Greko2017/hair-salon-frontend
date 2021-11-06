@@ -26,14 +26,14 @@ export class ServiceModalInner extends Component {
   };
   handleOnchangeEmployee = (val, event) => {
     let worker = [...this.props.employeelist].filter(item => item.id === val)[0];
-    console.log('In handleOnchangeEmployee: ', worker);
+    // console.log('In handleOnchangeEmployee: ', worker);
     this.setState({ ...this.state, employee_salary_id: parseInt(worker.salary_id.id) });
   };
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
         if (this.props.isOnCreate === true) {
           this.props.postService(values);
         } else if (this.props.isOnCreate === false) {
@@ -47,7 +47,7 @@ export class ServiceModalInner extends Component {
   render() {
     const { form, modalServiceVisible, modalServiceLoading, isOnCreate, employeelist, salarylist, item } = this.props;
     const { getFieldDecorator } = form;
-    console.log('this.props :>> ', this.props);
+    // console.log('this.props :>> ', this.props);
     return (
       <Modal
         title={`${isOnCreate === true ? 'Add' : 'Update'} Service`}
@@ -119,7 +119,7 @@ ServiceModalInner.propTypes = {
 };
 
 const mapStateToProps = state => {
-  console.log(`state.service.modalData.isVisible`, state.service.modalData.isVisible);
+  // console.log(`state.service.modalData.isVisible`, state.service.modalData.isVisible);
   return {
     modalServiceVisible: state.service.modalData.isVisible,
     modalServiceLoading: state.service.loading,

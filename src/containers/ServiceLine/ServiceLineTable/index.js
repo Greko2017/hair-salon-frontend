@@ -396,13 +396,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleServiceLineModalShowAction: () => dispatch(handleServiceLineModalShowAction()),
         editServiceLine: (service_line) => dispatch(editServiceLine(service_line)),
-        // fetchRevenues: () => dispatch(fetchRevenues()),
-        // fetchServiceLines: () => dispatch(fetchServiceLines()),
         servicelineEditEditingKey: (value) => dispatch(servicelineEditEditingKey(value)),
-        // editServiceLineModalVisible: (boolean) => dispatch(editServiceLineModalVisible(boolean)),
-        // editIsOnCreateModalVisible: (boolean) => dispatch(editIsOnCreateModalVisible(boolean)),
-        // editItemModal: (item) => dispatch(editItemModal(item)),
-        // addServiceLine: (new_income_line) => dispatch(addServiceLine(new_income_line)),
         deleteServiceLine: (id) => dispatch(deleteServiceLine(id)),
     }
 }

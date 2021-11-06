@@ -21,11 +21,11 @@ const { SubMenu } = Menu;
 class Header extends PureComponent {
   componentDidMount() {
     // useInjectSaga({ key, authLogoutSaga });
-    console.log(`this.props.user`, this.props.user);
+    // console.log(`this.props.user`, this.props.user);
   }
 
   handleLogoutClick = async e => {
-    console.log('this.props :>> ', this.props);
+    // console.log('this.props :>> ', this.props);
     e.key === 'logout' && this.props.authLogout();
   };
   render() {

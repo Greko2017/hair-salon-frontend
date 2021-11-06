@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Modal, Form, Select, Input, InputNumber, Checkbox } from 'antd';
+import { Modal, Form, Select, InputNumber, Checkbox } from 'antd';
 import { memo } from 'react';
 // import './SaleLineModal.css';
 import TextArea from 'antd/lib/input/TextArea';
@@ -47,13 +47,13 @@ const isCreditFormItemLayout = {
 
 export class SaleLineModalInner extends Component {
   state = {
-    price: null
-  }
+    price: null,
+  };
   componentDidMount() {
     const { fetchSales } = this.props;
     fetchSales();
   }
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -72,15 +72,7 @@ export class SaleLineModalInner extends Component {
     this.setState({ ...this.state, price: product.selling_price });
   };
   render() {
-    const {
-      form,
-      modalSaleLineVisible,
-      parent,
-      isOnCreate,
-      products,
-      sales,
-      item,
-    } = this.props;
+    const { form, modalSaleLineVisible, parent, isOnCreate, products, sales, item } = this.props;
     const { getFieldDecorator } = form;
 
     const prefixSelector = getFieldDecorator('prefix', {
@@ -95,7 +87,7 @@ export class SaleLineModalInner extends Component {
       <Modal
         title={`${isOnCreate === true ? 'Add' : 'Update'} Sale Line`}
         visible={modalSaleLineVisible}
-        onOk={(value, event) =>this.handleSubmit(value, event)}
+        onOk={(value, event) => this.handleSubmit(value, event)}
         okText={isOnCreate ? 'Add' : 'Update'}
         confirmLoading={this.props.modalSaleLineLoading}
         onCancel={this.props.handleSalesLineModalCancelAction}
@@ -123,7 +115,7 @@ export class SaleLineModalInner extends Component {
                     {sale.name}
                   </Option>
                 ))}
-              </Select>
+              </Select>,
             )}
           </Form.Item>
           <Form.Item label="Product" className="salesline_modal__content">
@@ -147,40 +139,15 @@ export class SaleLineModalInner extends Component {
               </Select>,
             )}
           </Form.Item>
-          {/* <Form.Item label="Sale" className="salesline_modal__content">
-            {getFieldDecorator('lookup', {
-              initialValue: item !== undefined && isOnCreate === false ? item.lookup.id : null,
-            })(
-              <Select
-                showSearch={true}
-                placeholder="Sale"
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  option.props.children
-                    .toString()
-                    .toLowerCase()
-                    .indexOf(input.toString().toLowerCase()) >= 0
-                }
-              >
-                {sales_names.map(sales_name => (
-                  <Option key={sales_name.id} value={sales_name.id}>
-                    {' '}
-                    {sales_name.name}{' '}
-                  </Option>
-                ))}
-              </Select>,
-            )}
-          </Form.Item> */}
           <Form.Item label="Amount" {...amountFormItemLayout} style={{ marginBottom: '.19rem' }}>
             <Form.Item
               name="amount_value"
               rules={[{ required: true }]}
               style={{ display: 'inline-block', width: '50%', marginRight: '0.15rem' }}
             >
-              {getFieldDecorator(
-                'amount_paid',
-                {initialValue: this.state.price},
-              )(<InputNumber disabled style={{ width: '100%' }} min={1} max={999999} placeholder="Amount Value" />)}
+              {getFieldDecorator('amount_paid', { initialValue: this.state.price })(
+                <InputNumber disabled style={{ width: '100%' }} min={1} max={999999} placeholder="Amount Value" />,
+              )}
             </Form.Item>
             <Form.Item style={{ display: 'inline-block', width: '30%' }}>
               {getFieldDecorator('product_quantity', {
