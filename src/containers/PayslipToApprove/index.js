@@ -31,11 +31,11 @@ export class PayslipToApprove extends Component {
           <title>Payrolls To Approve</title>
           <meta name="description" content="List of payroll to approve" />
         </Helmet>
-        {/* <div style={{ marginBottom: 16 }}>
-          <Button type="primary" onClick={this.props.handlePayrollModalShowAction}>
+        <div style={{ marginBottom: 16 }}>
+          {/* <Button type="primary" onClick={this.props.handlePayrollModalShowAction}>
             Add
-          </Button>
-        </div> */}
+          </Button> */}
+        </div>
         <PayrollToApproveTable {...this.ListProps} />
       </>
     );
