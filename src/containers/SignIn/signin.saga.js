@@ -17,13 +17,14 @@ export function* postSignInSaga() {
       password: password,
     });
     let token = res.data.access;
-    console.log(`-- postSignInSaga res`, token);
-    console.log(`-- postSignInSagadata`, res.data);
+    // console.log(`-- postSignInSaga res`, token);
+    // console.log(`-- postSignInSagadata`, res.data);
     yield put(saveUserData(res.data));
     yield put(postSignInSuccess(res.data));
-    yield put(push('/service'));
+    yield put(push('/'));
   } catch (error) {
     yield put(postSignInFailure(error));
+    // yield put(push('/signin'));
   }
 }
 

@@ -14,6 +14,16 @@ import Category from 'containers/Category';
 import Product from 'containers/Product';
 
 const mainRoutes = [
+  // {
+  //   exact: true,
+  //   path: '/dashboard',
+  //   name: 'Dashboard',
+  //   icon: 'home',
+  //   component: Board,
+  //   auth: true,
+  //   permission: 'admin',
+  //   key: '1',
+  // },
   {
     exact: true,
     path: '/',

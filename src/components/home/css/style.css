@@ -1,0 +1,75 @@
+.d-flex {
+  display: flex;
+}
+
+.flex-column{
+  flex-direction: column;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+.stats .stats-number {
+  font-family: 'HelveticaNeue-Medium';
+  font-size: 32px;
+}
+.stats h2, .stats .icon{
+  color: #fff;
+}
+
+.icon{
+  font-size: 38px;
+  vertical-align: middle;
+  /* height:38px; */
+}
+
+.stats {
+  margin: 0;
+  border-radius: 5px;
+}
+
+.sale .stats {
+  background: #e51a1ac4;
+  color: #fff;
+}
+
+.order .stats {
+  background: #db218ece;
+  color: #fff;
+}
+
+.user .stats {
+  background: #e718f2b8;
+  color: #fff;
+}
+.visitor .stats {
+  background: #a617e8b1;
+  color: #fff;
+}
+/* .dashboard_view {
+  background-color: #f0f2f5;
+} */
+
+.board_container p{
+  margin-bottom:0;
+}
+.m-t-15{
+  margin-top: 15px;
+}
+.text-center{
+  text-align: center;
+}
+
+.m-r-15{
+  margin-right: 15px;
+}
+
+#root > section > section > section > main > div{
+    background: #f0f2f5 !important;
+    padding: 0px !important;
+    min-height: 38px
+}
