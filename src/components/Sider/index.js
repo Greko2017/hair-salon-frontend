@@ -25,7 +25,7 @@ function Sider(props) {
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item key="1">
           <Link to="/">
-            <Icon type="/dashboard" />
+            <Icon type="dashboard" />
             <span>Dashboard</span>
           </Link>
         </Menu.Item>
