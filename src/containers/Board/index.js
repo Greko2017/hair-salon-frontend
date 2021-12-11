@@ -41,26 +41,26 @@ import FilterModal from './FilterModal';
 const key = 'board';
 const dateFormat = 'DD-MM-YYYY';
 class Board extends Component {
-  // constructor(props) {
-  //   super(props);
-  state = {
-    delete: false,
-    appointments: [],
-    date_min: null,
-    date_max: null,
-    service_name: null,
-    first_name: '',
-    last_name: '',
-    appointments: [],
-  };
-  // this.addItem = this.addItem.bind(this);
-  // this.deleteItem = this.deleteItem.bind(this);
-  // }
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     let date = new Date();
     let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     this.setState({ date_min: firstDay, date_max: lastDay });
+    state = {
+      delete: false,
+      appointments: [],
+      date_min: firstDay,
+      date_max: lastDay,
+      service_name: null,
+      first_name: '',
+      last_name: '',
+      appointments: [],
+    };
+    // this.addItem = this.addItem.bind(this);
+    // this.deleteItem = this.deleteItem.bind(this);
+  }
+  componentDidMount() {
     this.loadBoardData(this.state);
   }
   loadBoardData = params => {
