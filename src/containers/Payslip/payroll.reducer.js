@@ -1,4 +1,5 @@
 import {
+  DELETE_PAYROLL_SUCCESS,
   EDIT_PAYROLL_SUCCESS,
   FETCH_PAYROLL_SUCCESS,
   GET_PAYROLL_BY_ID_SUCCESS,
@@ -36,6 +37,15 @@ const payrollReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         error: payload,
+      };
+
+    case DELETE_PAYROLL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        payrolls: state.payrolls.filter(payroll => payroll.id !== payload),
+        response: payload,
+        error: '',
       };
     case POST_PAYROLL_SUCCESS:
       console.log('POST_PAYROLL_SUCCESS :>> ', payload);

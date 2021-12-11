@@ -18,6 +18,7 @@ import deductionReducer from 'containers/Deduction/deduction.reducer';
 import payrollToApproveReducer from 'containers/PayslipToApprove/payroll_to_approve.reducer';
 import inventoryReducer from 'containers/Inventory/inventory.reducer';
 import categoryReducer from 'containers/Category/category.reducer';
+import boardReducer from 'containers/Board/board.reducer';
 
 export default function createReducer(injectedReducers = {}) {
   const appReducer = combineReducers({
@@ -39,6 +40,7 @@ export default function createReducer(injectedReducers = {}) {
     payroll_to_approve: payrollToApproveReducer,
     inventory: inventoryReducer,
     category: categoryReducer,
+    board: boardReducer,
     ...injectedReducers,
   });
   const rootReducer = (state, action) => {

@@ -182,7 +182,7 @@ export class PayrollToApproveTable extends Component {
       {
         title: <span>Operation</span>,
         key: 'operation',
-        fixed: 'right',
+        align: 'center',
         width: 100,
         render: (text, record) => {
           return (
@@ -191,7 +191,6 @@ export class PayrollToApproveTable extends Component {
               menuOptions={[
                 { key: '1', name: `Update` },
                 { key: '2', name: `Delete` },
-                { key: '3', name: `Generate Report` },
               ]}
             />
           );

@@ -234,7 +234,7 @@ class EditableTable extends React.Component {
                 <a>Cancel</a>
               </Popconfirm>
             </span>
-          ) : evaluated && payslip_can_approve ? (
+          ) : payslip_can_approve ? (
             <div disabled={editingKey !== ''} width={10} type="flex" align="center" justify="space-between">
               <DropOption
                 onMenuClick={e => this.handleMenuClick(record, e)}
@@ -270,7 +270,7 @@ class EditableTable extends React.Component {
         <div type="flex" align="end" justify="space-between">
           <OtherPayModal modalProps={this.modalProps} />
 
-          {evaluated ? (
+          {payslip_can_approve ? (
             <div style={{ marginBottom: 16 }}>
               <Button type="primary" onClick={this.props.handleOtherPaysModalShowAction}>
                 Add

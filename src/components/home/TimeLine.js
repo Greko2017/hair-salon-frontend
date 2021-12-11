@@ -1,16 +1,23 @@
 import * as React from 'react';
-import {Timeline} from 'antd';
+import { Timeline } from 'antd';
+import { Link } from 'react-router-dom';
 
 class TimeLine extends React.Component {
-  render () {
+  render() {
+    const { sales } = this.props;
+    // console.log(`-- In TimeLine sales`, sales);
     return (
-      <Timeline>
-        <Timeline.Item>Responded to need 2019-01-01</Timeline.Item>
-        <Timeline.Item>Added an interest 2019–02-10</Timeline.Item>
-        <Timeline.Item>Joined the group 2019-03-27</Timeline.Item>
-        <Timeline.Item>Responded to need 2019-05-09</Timeline.Item>
-        <Timeline.Item>Responded to need 2019-01-01</Timeline.Item>
-        <Timeline.Item>Added an interest 2019–02-10</Timeline.Item>
+      <Timeline style={{ minHeight: '245px' }}>
+        {sales instanceof Array
+          ? sales.map(sale => (
+              <Timeline.Item>
+                <Link key={sale.id} to={{ pathname: `/sales/${sale.id}` }}>
+                  {sale.name}
+                </Link>{' '}
+                - {sale.created_at.substring(0, 10)}
+              </Timeline.Item>
+            ))
+          : null}
       </Timeline>
     );
   }

@@ -81,7 +81,8 @@ export class ServiceLineModalInner extends Component {
     })(
       <Select style={{ width: 70 }}>
         <Option value="om">OM</Option>
-        <Option value="momo">MOMO</Option>
+        <Option value="momo">MoMo</Option>
+        <Option value="cash">MoMo</Option>
       </Select>,
     );
     return (

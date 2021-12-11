@@ -52,7 +52,15 @@ export class PayrollTable extends Component {
     ),
     filterIcon: filtered => <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />,
     onFilter: (value, record) => {
-      console.log('In onFilter :>> ', value, record);
+      // console.log('In onFilter :>> ', value, record);
+      if (dataIndex === 'username') {
+        return record['employee']
+          ? record['employee']['user']['username']
+              .toString()
+              .toLowerCase()
+              .includes(value.toLowerCase())
+          : '';
+      }
       return record[dataIndex]
         ? record[dataIndex]
             .toString()
@@ -119,9 +127,10 @@ export class PayrollTable extends Component {
       },
       {
         title: 'Employee',
-        dataIndex: 'employee',
-        key: 'employee',
-        render: employee => <span>{employee?.user?.username}</span>,
+        dataIndex: 'employee.user.username',
+        key: 'username',
+        render: username => <span>{username}</span>,
+        ...this.getColumnSearchProps('username'),
       },
       {
         title: 'Period',
@@ -190,7 +199,7 @@ export class PayrollTable extends Component {
       {
         title: <span>Operation</span>,
         key: 'operation',
-        fixed: 'right',
+        align: 'center',
         width: 100,
         render: (text, record) => {
           return (
@@ -199,7 +208,6 @@ export class PayrollTable extends Component {
               menuOptions={[
                 { key: '1', name: `Update` },
                 { key: '2', name: `Delete` },
-                { key: '3', name: `Generate Report` },
               ]}
             />
           );

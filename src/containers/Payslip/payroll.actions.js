@@ -2,6 +2,7 @@ import axios from 'axios';
 import { API_BASE } from '../../env';
 import { message } from 'antd';
 import {
+  DELETE_PAYROLL_SUCCESS,
   EDIT_PAYROLL_SUCCESS,
   FETCH_PAYROLL_SUCCESS,
   GET_PAYROLL_BY_ID_SUCCESS,
@@ -192,3 +193,38 @@ function computePayrollName() {
     date >= 9 ? `0${date + 1}` : date
   }${hours}${minutes}${seconds}`;
 }
+
+export const deletePayrollSuccess = response => {
+  // console.log('in deletePayrollSuccess payroll', response);
+  message.success({ content: 'deleted successfully!', key, duration: 3 });
+  return {
+    type: DELETE_PAYROLL_SUCCESS,
+    payload: response,
+  };
+};
+
+export const deletePayroll = id => {
+  let params = {
+    id: id,
+  };
+  let url = `${API_BASE}/api/payroll/${params.id}/`;
+
+  return dispatch => {
+    dispatch(initiatePayrollRequest(id));
+    let stored_token = localStorage.getItem('token');
+    let token = `Token ${stored_token}`;
+    axios.defaults.headers.common['Authorization'] = token;
+    console.log('---- deletePayroll params', params, 'Token ', token, 'url ', url);
+    axios
+      .delete(url, params)
+      .then(response => {
+        console.log('---- deletePayroll payroll', response);
+        dispatch(deletePayrollSuccess(id));
+      })
+      .catch(error => {
+        console.error('---- deletePayroll error', error);
+        const errorMsg = error.message;
+        dispatch(initiatePayrollFailure(errorMsg));
+      });
+  };
+};

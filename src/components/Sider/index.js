@@ -16,9 +16,14 @@ function Sider(props) {
     setCollapsed(!collapsed);
   };
   const { user_permissions } = props;
-  const { payslip_un_approve, payslip_can_approve, user_inventory, management_inventory } = permisionListSelector(
-    user_permissions,
-  );
+  const {
+    payslip_un_approve,
+    payslip_can_approve,
+    user_inventory,
+    management_inventory,
+    payslip_can_un_approve,
+    can_send_for_approval,
+  } = permisionListSelector(user_permissions);
   return (
     <Layout.Sider collapsible onBreakpoint={!props.isMobile} collapsed={collapsed} onCollapse={onCollapse}>
       <div className="logo" />
@@ -41,34 +46,36 @@ function Sider(props) {
             <span>Sales</span>
           </Link>
         </Menu.Item>
-        <SubMenu
-          key="sub2"
-          title={
-            <span>
-              <Icon type="solution" />
-              <span>Payroll</span>
-            </span>
-          }
-        >
-          <Menu.Item key="3">
-            <Link to="/payslip">
-              <Icon type="file-add" />
-              <span>Employee Payslips</span>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="4">
+        {payslip_can_approve || payslip_can_un_approve || can_send_for_approval ? (
+          <SubMenu
+            key="sub2"
+            title={
+              <span>
+                <Icon type="solution" />
+                <span>Payroll</span>
+              </span>
+            }
+          >
+            <Menu.Item key="3">
+              <Link to="/payslip">
+                <Icon type="file-add" />
+                <span>Employee Payslips</span>
+              </Link>
+            </Menu.Item>
+            {/* <Menu.Item key="4">
             <Link to="/payslip_batch">
               <Icon type="usergroup-add" />
               <span>Payslips Batches</span>
             </Link>
-          </Menu.Item>
-          <Menu.Item key="5">
-            <Link to="/payslip_to_approve">
-              <Icon type="file-done" />
-              <span>Payslips to approve</span>
-            </Link>
-          </Menu.Item>
-        </SubMenu>
+          </Menu.Item> */}
+            <Menu.Item key="5">
+              <Link to="/payslip_to_approve">
+                <Icon type="file-done" />
+                <span>Payslips to approve</span>
+              </Link>
+            </Menu.Item>
+          </SubMenu>
+        ) : null}
         {user_inventory || management_inventory ? (
           <SubMenu
             key="inventory"

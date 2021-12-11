@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button } from 'antd';
 import PayrollModal from './PayrollModal';
 import PayrollTable from './PayrollTable';
-import { fetchPayrolls, handlePayrollModalShowAction, setPayrollModalItem } from './payroll.actions';
+import { fetchPayrolls, handlePayrollModalShowAction, deletePayroll, setPayrollModalItem } from './payroll.actions';
 
 export class Payslip extends Component {
   componentDidMount() {
@@ -50,6 +50,7 @@ const mapDispatchToProps = dispatch => {
     fetchPayrolls: () => dispatch(fetchPayrolls()),
     handlePayrollModalShowAction: item => dispatch(handlePayrollModalShowAction(item)),
     setPayrollModalItem: item => dispatch(setPayrollModalItem(item)),
+    deletePayroll: id => dispatch(deletePayroll(id)),
   };
 };
 

@@ -164,7 +164,7 @@ export class ProductTable extends Component {
       {
         title: <span>Operation</span>,
         key: 'operation',
-        fixed: 'right',
+        align: 'center',
         width: 100,
         render: (text, record) => {
           return (

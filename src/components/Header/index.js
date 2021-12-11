@@ -32,7 +32,7 @@ class Header extends PureComponent {
     return (
       <Layout.Header className="header">
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ lineHeight: '64px' }}>
-          <Menu.Item key="stations">
+          {/* <Menu.Item key="stations">
             <Link to="/stations">Menu 1</Link>
           </Menu.Item>
           <Menu.Item key="services">
@@ -43,7 +43,7 @@ class Header extends PureComponent {
           </Menu.Item>
           <Menu.Item key="revenue">
             <Link to="/revenue">Menu 4</Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <SubMenu
             style={{ float: 'right', marginRight: '5', marginLeft: '5' }}
             title={
