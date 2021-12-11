@@ -81,6 +81,7 @@ export class SaleLineModalInner extends Component {
       <Select style={{ width: 70 }}>
         <Option value="om">OM</Option>
         <Option value="momo">MOMO</Option>
+        <Option value="cash">Cash</Option>
       </Select>,
     );
     return (
@@ -159,7 +160,7 @@ export class SaleLineModalInner extends Component {
                 'payment_method',
                 {},
               )(
-                <Select placeholder="Payement method">
+                <Select placeholder="Payment method">
                   <Option value="om">OM</Option>
                   <Option value="momo">MOMO</Option>
                   <Option value="cash">Cash</Option>
