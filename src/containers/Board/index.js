@@ -46,8 +46,11 @@ class Board extends Component {
     let date = new Date();
     let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    firstDay = moment(firstDay).format('YYYY-MM-DD');
+    firstDay = moment(lastDay).format('YYYY-MM-DD');
     this.setState({ date_min: firstDay, date_max: lastDay });
-    state = {
+    this.state = {
       delete: false,
       appointments: [],
       date_min: firstDay,
