@@ -162,6 +162,7 @@ export class SaleLineModalInner extends Component {
                 <Select placeholder="Payement method">
                   <Option value="om">OM</Option>
                   <Option value="momo">MOMO</Option>
+                  <Option value="cash">Cash</Option>
                 </Select>,
               )}
             </Form.Item>

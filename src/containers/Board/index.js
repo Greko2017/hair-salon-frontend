@@ -46,7 +46,7 @@ class Board extends Component {
     let date = new Date();
     let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
+    // https://www.tabnine.com/academy/javascript/how-to-format-date/
     firstDay = moment(firstDay).format('YYYY-MM-DD');
     firstDay = moment(lastDay).format('YYYY-MM-DD');
     this.setState({ date_min: firstDay, date_max: lastDay });
