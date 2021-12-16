@@ -287,6 +287,15 @@ class EditableTable extends React.Component {
         editable: true,
       },
       {
+        title: 'Payment Method',
+        dataIndex: 'payment_method',
+        key: 'payment_method',
+        render: (text, record) => {
+          // console.log(`--- record`, record)
+          return text;
+        },
+      },
+      {
         title: 'Qty',
         dataIndex: 'quantity',
         key: 'quantity',

@@ -219,7 +219,7 @@ class ServiceTable extends Component {
       },
       {
         title: 'Payment Method',
-        dataIndex: 'servicelines.payment_method',
+        dataIndex: 'servicelines',
         key: 'payment_method',
         render: servicelines => {
           let payment_method =
@@ -227,7 +227,7 @@ class ServiceTable extends Component {
           return <span>{payment_method}</span>;
         },
         filteredValue: filteredInfo.payment_method || null,
-        ...this.getColumnSearchProps('payment_method'),
+        ...this.getColumnSearchProps('servicelines'),
       },
       {
         title: <span>Operation</span>,
