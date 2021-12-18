@@ -12,6 +12,7 @@ import PayslipLine from 'containers/PayslipLine';
 import Inventory from 'containers/Inventory';
 import Category from 'containers/Category';
 import Product from 'containers/Product';
+import Customer from 'containers/Customer';
 
 const mainRoutes = [
   // {
@@ -117,6 +118,13 @@ const mainRoutes = [
     icon: 'product',
     component: Product,
     key: '11',
+  },
+  {
+    path: '/customer',
+    name: 'customer',
+    icon: 'customer',
+    component: Customer,
+    key: '12',
   },
   {
     path: '',

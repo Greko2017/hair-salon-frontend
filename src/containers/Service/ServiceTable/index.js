@@ -73,7 +73,7 @@ class ServiceTable extends Component {
   });
 
   handleSearch = (selectedKeys, confirm, dataIndex) => {
-    console.log('in handleSearch:>> ', selectedKeys, dataIndex);
+    // console.log('in handleSearch:>> ', selectedKeys, dataIndex);
     confirm();
     this.setState({
       searchText: selectedKeys[0],
@@ -87,12 +87,12 @@ class ServiceTable extends Component {
   };
 
   clearFilters = () => {
-    console.log('clearFilters', this.state);
+    // console.log('clearFilters', this.state);
     this.setState({ filteredInfo: null });
   };
 
   clearAll = () => {
-    console.log('clearAll', this.state);
+    // console.log('clearAll', this.state);
     this.setState({
       filteredInfo: null,
       sortedInfo: null,
@@ -100,7 +100,7 @@ class ServiceTable extends Component {
   };
 
   setNumberSort = () => {
-    console.log('setNumberSort', this.state);
+    // console.log('setNumberSort', this.state);
     this.setState({
       sortedInfo: {
         order: 'descend',
@@ -110,7 +110,7 @@ class ServiceTable extends Component {
   };
 
   handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     this.setState({
       filteredInfo: filters,
       sortedInfo: sorter,
@@ -206,7 +206,7 @@ class ServiceTable extends Component {
         render: servicelines => {
           let amount_paid = 0;
           servicelines.forEach((serviceline, i) => {
-            amount_paid = amount_paid + serviceline.amount_paid;
+            amount_paid = amount_paid + serviceline.amount_paid * serviceline.quantity;
           });
           return <span>{`${amount_paid} Fcfa`}</span>;
         },

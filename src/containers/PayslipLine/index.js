@@ -41,7 +41,17 @@ export class PayslipLine extends Component {
   }
   generatePayslipReport() {
     // console.log(`In generatePayslipReport`);
-    const { name, employee, date_from, date_to, worked_value, other_pays, deductions, net_salary } = this.props.parent;
+    const {
+      name,
+      employee,
+      date_from,
+      date_to,
+      worked_value,
+      other_pays,
+      computed_salary,
+      deductions,
+      net_salary,
+    } = this.props.parent;
     // Landscape export, 2×4 inches
     const doc = new jsPDF({
       orientation: 'portrait',
@@ -60,23 +70,27 @@ export class PayslipLine extends Component {
     doc.text(`Date From : ${date_from}`, 15, 75);
     doc.text(`    Date To : ${date_to}`, 15, 80);
 
-    doc.text(`Service render Amount : ${worked_value}`, 15, 95);
+    doc.text(`Service render Amount : ${worked_value}`, 15, 90);
+    doc.text(`Income Salary : ${employee.salary_id.income || 0}`, 15, 95);
+    // doc.setFont('Helvertica', 'bold');
+    doc.text(`Percentage salary ( ${employee.salary_id.percentage}% ) : ${computed_salary}`, 15, 100);
+    // doc.setFont('Helvertica', 'normal');
     doc.text(
       `Other Pays : ${other_pays?.reduce((prev, curr) => {
         return prev + curr.amount;
       }, 0)}`,
       15,
-      100,
+      105,
     );
     doc.text(
       `Deductions : ${deductions?.reduce((prev, curr) => {
         return prev + curr.amount;
       }, 0)}`,
       15,
-      105,
+      110,
     );
     doc.setFont('Helvertica', 'bold');
-    doc.text(`Net Salary : ${net_salary}`, 150, 105);
+    doc.text(`Net Salary : ${net_salary}`, 150, 110);
 
     doc.text('Other Pays', 15, 120);
     // Or use javascript directly:

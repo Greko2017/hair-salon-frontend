@@ -205,7 +205,7 @@ export class ServiceLineModalInner extends Component {
           </Form.Item>
           <Form.Item {...isCreditFormItemLayout}>
             {getFieldDecorator('is_credit', {
-              initialValue: item !== undefined ? item.is_credit : true,
+              initialValue: item === undefined ? false : item.is_credit,
               valuePropName: 'checked',
             })(
               <Checkbox>

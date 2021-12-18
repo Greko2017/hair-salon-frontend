@@ -78,7 +78,7 @@ export class ServiceModalInner extends Component {
               </Select>,
             )}
           </Form.Item>
-          <Form.Item label="Salary" className="service_modal__content">
+          <Form.Item style={{ visibility: 'hidden' }} label="Salary" className="service_modal__content">
             {getFieldDecorator('salary', {
               initialValue: this.state.employee_salary_id
                 ? this.state.employee_salary_id

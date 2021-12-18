@@ -18,6 +18,12 @@ function permisionListSelector(permissions) {
           if (curr.codename === 'user_inventory') {
             prev.user_inventory = true;
           }
+          if (curr.codename === 'management_customer') {
+            prev.management_customer = true;
+          }
+          if (curr.codename === 'user_customer') {
+            prev.user_customer = true;
+          }
           return prev;
         },
         { payslip_un_approve: false, payslip_can_approve: false },

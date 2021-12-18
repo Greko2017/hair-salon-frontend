@@ -23,6 +23,8 @@ function Sider(props) {
     management_inventory,
     payslip_can_un_approve,
     can_send_for_approval,
+    user_customer,
+    management_customer,
   } = permisionListSelector(user_permissions);
   return (
     <Layout.Sider collapsible onBreakpoint={!props.isMobile} collapsed={collapsed} onCollapse={onCollapse}>
@@ -102,6 +104,24 @@ function Sider(props) {
               <Link to="/product">
                 <Icon type="file-add" />
                 <span>Product</span>
+              </Link>
+            </Menu.Item>
+          </SubMenu>
+        ) : null}
+        {user_customer || management_customer ? (
+          <SubMenu
+            key="Client"
+            title={
+              <span>
+                <Icon type="team" />
+                <span>Client</span>
+              </span>
+            }
+          >
+            <Menu.Item key="customer1">
+              <Link to="/customer">
+                <Icon type="user" />
+                <span>Client List</span>
               </Link>
             </Menu.Item>
           </SubMenu>
