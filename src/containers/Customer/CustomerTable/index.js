@@ -155,6 +155,7 @@ class CustomerTable extends Component {
             } ${record.firstname}, ${record.lastname}`}</Link>
           );
         },
+
         ...this.getColumnSearchProps('full_name'),
       },
       {
@@ -168,7 +169,23 @@ class CustomerTable extends Component {
         dataIndex: 'gender',
         key: 'gender',
         render: gender => <span>{gender}</span>,
-        ...this.getColumnSearchProps('gender'),
+        // filteredValue: filteredInfo.genre || null,
+        filters: [
+          { text: 'Male', value: 'male' },
+          { text: 'Female', value: 'female' },
+        ],
+        onFilter: (value, record) => {
+          console.log(
+            'In onFilter genre :>> ',
+            value,
+            record['gender'],
+            record,
+            record['gender'] ? record['gender'].toString().toLowerCase() === value.toLowerCase() : false,
+          );
+          return record['gender'] ? record['gender'].toString().toLowerCase() === value.toLowerCase() : false;
+        },
+
+        // ...this.getColumnSearchProps('gender'),
       },
 
       {

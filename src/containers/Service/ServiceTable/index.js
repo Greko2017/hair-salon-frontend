@@ -18,7 +18,6 @@ class ServiceTable extends Component {
     filteredInfo: null,
     sortedInfo: null,
   };
-
   getColumnSearchProps = dataIndex => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
