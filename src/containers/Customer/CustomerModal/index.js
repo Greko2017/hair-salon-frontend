@@ -30,16 +30,6 @@ const amountFormItemLayout = {
     },
   },
 };
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
-};
 
 const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
@@ -54,7 +44,7 @@ export class CustomerModalInner extends Component {
     e.persist();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values, this.props.item);
+        // console.log('Received values of form: ', values, this.props.item);
         if (this.props.isOnCreate === true) {
           this.props.postCustomer(values);
         } else if (this.props.isOnCreate === false) {
@@ -86,15 +76,15 @@ export class CustomerModalInner extends Component {
         onCancel={this.props.handleCustomerModalCancelAction}
         className="customer_modal__container"
       >
-        <Form {...formItemLayout} className="customer-form" validateMessages={validateMessages}>
-          <Form.Item label="Name" className="customer_modal__content">
-            {getFieldDecorator('First Name', {
+        <Form {...formItemLayout} className="customer-form">
+          <Form.Item label="First Name" className="customer_modal__content">
+            {getFieldDecorator('first_name', {
               initialValue: item !== undefined && isOnCreate === false ? item.firstname : null,
             })(<Input style={{ width: '100%' }} />)}
           </Form.Item>
 
           <Form.Item label="Last Name" className="customer_modal__content">
-            {getFieldDecorator('Last Name', {
+            {getFieldDecorator('last_name', {
               initialValue: item !== undefined && isOnCreate === false ? item.lastname : null,
             })(<Input style={{ width: '100%' }} />)}
           </Form.Item>
@@ -118,16 +108,14 @@ export class CustomerModalInner extends Component {
               rules={[{ required: true }]}
               style={{ display: 'inline-block', width: '70%', marginRight: '0.15rem' }}
             >
-              {getFieldDecorator(
-                'phone_number',
-                {},
-              )(<InputNumber style={{ width: '100%' }} min={1} max={999999999999} placeholder="Phone Number" />)}
+              {getFieldDecorator('phone_number', {
+                initialValue: item !== undefined && isOnCreate === false ? item.phone_number : null,
+              })(<InputNumber style={{ width: '100%' }} min={1} max={999999999999} placeholder="Phone Number" />)}
             </Form.Item>
             <Form.Item style={{ display: 'inline-block', width: '28%', marginLeft: '0.15rem' }}>
-              {getFieldDecorator(
-                'payment_method',
-                {},
-              )(
+              {getFieldDecorator('genre', {
+                initialValue: item !== undefined && isOnCreate === false ? item.genre : null,
+              })(
                 <Select placeholder="Genre  ">
                   <Option value="male">Male</Option>
                   <Option value="women">Women</Option>

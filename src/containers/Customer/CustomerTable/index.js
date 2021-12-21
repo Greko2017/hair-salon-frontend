@@ -150,7 +150,7 @@ class CustomerTable extends Component {
         filteredValue: filteredInfo.name || null,
         render: (text, record) => {
           return (
-            <Link to={{ pathname: `/customer/${record.id}`, state: { customerDetailsData: record } }}>{`${
+            <Link to={{ pathname: `/customer`, state: { customerDetailsData: record } }}>{`${
               record.gender === 'male' ? 'Mr.' : 'Mm.'
             } ${record.firstname}, ${record.lastname}`}</Link>
           );

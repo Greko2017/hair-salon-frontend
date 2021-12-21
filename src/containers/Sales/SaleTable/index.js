@@ -203,15 +203,26 @@ class SaleTable extends Component {
       },
       {
         title: 'Payment Method',
-        dataIndex: 'salelines.payment_method',
+        dataIndex: 'salelines',
         key: 'payment_method',
         render: salelines => {
+          console.log(`salelines`, salelines);
           let payment_method =
             salelines !== undefined && salelines[0] !== undefined ? salelines[0].payment_method : 'N/A';
           return <span>{payment_method}</span>;
         },
         filteredValue: filteredInfo.payment_method || null,
-        ...this.getColumnSearchProps('payment_method'),
+        filters: [
+          { text: 'MOMO', value: 'momo' },
+          { text: 'OM', value: 'om' },
+          { text: 'Cash', value: 'cash' },
+        ],
+        onFilter: (value, record) => {
+          console.log('In onFilter :>> ', value, record);
+          return record.salelines[0]
+            ? record.salelines[0]['payment_method'].toString().toLowerCase() === value.toLowerCase()
+            : '';
+        },
       },
       {
         title: <span>Operation</span>,

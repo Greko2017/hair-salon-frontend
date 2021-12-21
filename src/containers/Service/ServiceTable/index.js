@@ -227,7 +227,18 @@ class ServiceTable extends Component {
           return <span>{payment_method}</span>;
         },
         filteredValue: filteredInfo.payment_method || null,
-        ...this.getColumnSearchProps('servicelines'),
+        // ...this.getColumnSearchProps('servicelines'),
+        filters: [
+          { text: 'MOMO', value: 'momo' },
+          { text: 'OM', value: 'om' },
+          { text: 'Cash', value: 'cash' },
+        ],
+        onFilter: (value, record) => {
+          console.log('In onFilter payment_method :>> ', value, record);
+          return record.servicelines[0]
+            ? record.servicelines[0]['payment_method'].toString().toLowerCase() === value.toLowerCase()
+            : '';
+        },
       },
       {
         title: <span>Operation</span>,

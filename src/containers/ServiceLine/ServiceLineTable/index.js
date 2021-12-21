@@ -294,6 +294,17 @@ class EditableTable extends React.Component {
           // console.log(`--- record`, record)
           return text;
         },
+        filters: [
+          { text: 'MOMO', value: 'momo' },
+          { text: 'OM', value: 'om' },
+          { text: 'Cash', value: 'cash' },
+        ],
+        onFilter: (value, record) => {
+          console.log('In onFilter :>> ', value, record);
+          return record['payment_method']
+            ? record['payment_method'].toString().toLowerCase() === value.toLowerCase()
+            : '';
+        },
       },
       {
         title: 'Qty',
